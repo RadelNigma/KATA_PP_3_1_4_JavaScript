@@ -17,16 +17,20 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> finedAllRoles() {
-        return roleRepository.findAll();
+        List<Role> roles = roleRepository.findAll();
+        return roles;
     }
 
     @Override
+    @Transactional
     public void saveRole(Role role) {
         roleRepository.save(role);
     }
 
     @Override
+    @Transactional
     public Role findRoleByName(String roleName) {
         return roleRepository.findRoleByName(roleName);
     }

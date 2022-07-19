@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -15,12 +14,10 @@ public class DataLoader {
 
     private final UserService userService;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
 
-    public DataLoader(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public DataLoader(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -43,7 +40,7 @@ public class DataLoader {
         admin.setLastName("admin");
         admin.setAge(30);
         admin.setEmail("admin@mail.ru");
-        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setPassword("admin");
         admin.setRoles(Set.of(roleAdmin, roleUser));
         if (userService.findUserByEmail(admin.getEmail()) == null) {
             userService.saveUser(admin);
@@ -54,7 +51,7 @@ public class DataLoader {
         user.setLastName("user");
         user.setAge(30);
         user.setEmail("user@mail.ru");
-        user.setPassword(passwordEncoder.encode("user"));
+        user.setPassword("user");
         user.setRoles(Set.of(roleUser));
         if (userService.findUserByEmail(user.getEmail()) == null) {
             userService.saveUser(user);
