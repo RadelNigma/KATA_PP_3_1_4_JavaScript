@@ -21,11 +21,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User findById(Long id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public List<User> finedAll() {
         return userRepository.findAll();
     }
@@ -38,11 +40,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
