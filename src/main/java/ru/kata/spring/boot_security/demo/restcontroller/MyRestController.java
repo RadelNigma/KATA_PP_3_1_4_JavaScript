@@ -1,34 +1,40 @@
 package ru.kata.spring.boot_security.demo.restcontroller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.exeption_handing.NoSuchUserException;
-import ru.kata.spring.boot_security.demo.exeption_handing.UserIncorrectData;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class MyRestController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public MyRestController(UserService userService) {
+    public MyRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<User> getAllUsers() {
         return userService.finedAll();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/role")
+    public List<Role> getAllRoles() {
+        return roleService.finedAllRoles();
+    }
+
+    @GetMapping("/{id}")
     public User getUser(@PathVariable long id) {
          User user = userService.findById(id);
          if (user==null){
@@ -38,18 +44,18 @@ public class MyRestController {
         return user;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/")
     public User addNewUser(@RequestBody User user){
         userService.saveUser(user);
         return user;
     }
-    @PutMapping("/user")
+    @PatchMapping("/")
     public User updateUser (@RequestBody User user){
         userService.saveUser(user);
         return user;
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable long id) {
         User user = userService.findById(id);
         if (user==null){
@@ -58,5 +64,12 @@ public class MyRestController {
         }
         userService.deleteById(id);
         return "User with ID = " + id + " was deleted!";
+    }
+
+    @GetMapping("/principal")
+    public User viewAdminPage(Model model, Principal principal){
+        User principalUser = userService.findUserByEmail(principal.getName());
+        model.addAttribute("user", principalUser);
+        return principalUser;
     }
 }
