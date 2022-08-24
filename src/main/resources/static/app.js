@@ -55,7 +55,6 @@ allUsers.then(users => {
                         <td>${user.lastName}</td>
                         <td>${user.age}</td>
                         <td>${user.email}</td>
-                        <td hidden>${user.password}</td>
                         <td>${usersRoles}</td>
                         <td><button type="button" class="btn btn-info btn-sm text-white" 
                         id="btnEdit">Edit</button></td> 
@@ -98,7 +97,6 @@ principal.then(user => {
                         <td>${user.lastName}</td>
                         <td>${user.age}</td>
                         <td>${user.email}</td>
-                        <td hidden>${user.password}</td>
                         <td>${usersRoles}</td>
                    </tr>`
     principalTable.innerHTML = result
@@ -157,7 +155,6 @@ document.getElementById('formAddUser').addEventListener('submit', (e) => {
                            <td>${user.lastName}</td>
                            <td>${user.age}</td>
                            <td>${user.email}</td>
-                           <td hidden>${user.password}</td>
                            <td>${rolesAddUserValue}</td>
                            <td><button type="button" class="btn btn-info btn-sm text-white" id="btnEdit">Edit</button></td>
                            <td><button type="button" class="btn btn-danger btn-sm" id="btnDelete">Delete</button></td>
@@ -189,7 +186,7 @@ on(document, 'click', '#btnEdit', e => {
     let option = ''
     allRoles.then(roles => {
         roles.forEach(role => {
-            let selected = rowEdit.children[6].innerHTML.includes(role.name.replace('ROLE_', '')) ? 'selected' : ''
+            let selected = rowEdit.children[5].innerHTML.includes(role.name.replace('ROLE_', '')) ? 'selected' : ''
             option += `<option value="${role.id}" ${selected}>${role.name.replace('ROLE_', '')}</option>`
         })
         rolesEdit.innerHTML = option
@@ -197,7 +194,7 @@ on(document, 'click', '#btnEdit', e => {
     editUserModal.show()
 })
 
-//Нажатие на кнопку Edit модальн. окна
+//Нажатие на кнопку [Edit] модальн. окна [Edit]
 document.getElementById('formEditUser').addEventListener('submit', (e) => {
     e.preventDefault()
     let elm = document.getElementById('rolesEdit') // в модальн. окне Edit <select> Roles
@@ -209,7 +206,6 @@ document.getElementById('formEditUser').addEventListener('submit', (e) => {
             rolesUserEditValue += elm.options[i].innerHTML + ' '
         }
     }
-    let pass = passwordEdit.value === '' ? rowEdit.children[5].innerHTML : passwordEdit.value
 
     fetch(url, {
         method: 'PATCH',
@@ -222,7 +218,7 @@ document.getElementById('formEditUser').addEventListener('submit', (e) => {
             lastName: lastNameEdit.value,
             age: ageEdit.value,
             email: emailEdit.value,
-            password: pass,
+            password: passwordEdit.value,
             roles: rolesUserEdit
         })
     })
@@ -233,7 +229,7 @@ document.getElementById('formEditUser').addEventListener('submit', (e) => {
     rowEdit.children[2].innerHTML = lastNameEdit.value
     rowEdit.children[3].innerHTML = ageEdit.value
     rowEdit.children[4].innerHTML = emailEdit.value
-    rowEdit.children[6].innerHTML = rolesUserEditValue
+    rowEdit.children[5].innerHTML = rolesUserEditValue
     editUserModal.hide()
 })
 
@@ -252,7 +248,7 @@ on(document, 'click', '#btnDelete', e => {
     let option = ''
     allRoles.then(roles => {
         roles.forEach(role => {
-            let selected = rowDelete.children[6].innerHTML.includes(role.name.replace('ROLE_', '')) ? 'selected' : ''
+            let selected = rowDelete.children[5].innerHTML.includes(role.name.replace('ROLE_', '')) ? 'selected' : ''
             option += `<option value="${role.id}" ${selected}>${role.name.replace('ROLE_', '')}</option>`
         })
         document.getElementById('rolesDelete').innerHTML = option
@@ -260,7 +256,7 @@ on(document, 'click', '#btnDelete', e => {
     deleteUserModal.show()
 })
 
-//Нажатие на кнопку Delete модальн. окна
+//Нажатие на кнопку [Delete] модальн. окна [Delete]
 document.getElementById('formDeleteUser').addEventListener('submit', (e) => {
     e.preventDefault()
     fetch(url + rowDelete.children[0].innerHTML, {
