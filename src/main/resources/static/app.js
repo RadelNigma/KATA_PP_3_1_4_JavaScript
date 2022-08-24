@@ -172,7 +172,6 @@ document.getElementById('formAddUser').addEventListener('submit', (e) => {
 // Модальное окно Edit
 //Нажатие на кнопку [Edit] в [User table]
 let rowEdit = null
-// let passwordEditUser = ''
 on(document, 'click', '#btnEdit', e => {
     rowEdit = e.parentNode.parentNode
 
