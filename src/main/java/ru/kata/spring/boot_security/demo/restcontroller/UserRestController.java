@@ -14,17 +14,17 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
-public class MyRestController {
+public class UserRestController {
 
     private final UserService userService;
     private final RoleService roleService;
 
-    public MyRestController(UserService userService, RoleService roleService) {
+    public UserRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<User> getAllUsers() {
         return userService.finedAll();
     }
