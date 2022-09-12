@@ -1,6 +1,7 @@
 const url = 'http://localhost:8080/api/user/'
+const urlRole = 'http://localhost:8080/api/role/'
 const allUsers = fetch(url).then(res => res.json())
-const allRoles = fetch(url + 'role').then(res => res.json())
+const allRoles = fetch(urlRole).then(res => res.json())
 const principal = fetch(url + 'principal').then(res => res.json())
 
 const dataTable = document.getElementById('allUsers')
