@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class AdminController {
+public class LoginController {
 
     @GetMapping(value = "/")
     public String start() {
@@ -19,10 +19,5 @@ public class AdminController {
         model.addAttribute("error", error != null);
         model.addAttribute("logout", logout != null);
         return "login";
-    }
-
-    @GetMapping("/admin")
-    public String viewAdminPage() {
-        return "admin";
     }
 }
