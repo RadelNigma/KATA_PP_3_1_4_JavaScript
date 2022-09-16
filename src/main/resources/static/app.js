@@ -62,7 +62,17 @@ allUsers.then(users => {
                         <td><button type="button" class="btn btn-danger btn-sm" id="btnDelete">Delete</button></td>   
                    </tr>`
     })
-    dataTable.innerHTML = result
+
+    // Отобразится только если Role Admin
+    let principalRoles = ''
+    principal.then(user => {
+        user.roles.forEach(role => {
+            principalRoles += role.name.replace('ROLE_', '') + ' '
+        })
+        if (principalRoles.includes('ADMIN')) {
+            dataTable.innerHTML = result
+        }
+    })
 })
     .catch(error => {
         console.log(error)

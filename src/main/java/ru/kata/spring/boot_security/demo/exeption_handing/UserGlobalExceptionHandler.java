@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class UserGlobalExceptionHandler {
 
-    //    EntityNotFoundException
     @ExceptionHandler
     public ResponseEntity<UserIncorrectData> handlerException(NoSuchUserException exception) {
         UserIncorrectData data = new UserIncorrectData();
