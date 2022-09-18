@@ -1,7 +1,8 @@
 package ru.kata.spring.boot_security.demo.restcontroller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.exeption_handing.NoSuchUserException;
+import ru.kata.spring.boot_security.demo.exeption_handling.NoSuchUserException;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
