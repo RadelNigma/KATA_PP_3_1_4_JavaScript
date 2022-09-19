@@ -13,6 +13,7 @@ const showActiveAdmin = document.getElementById('showActiveAdmin')
 const showActiveUser = document.getElementById('showActiveUser')
 const btnAdmin = document.getElementById('btnAdmin')
 const btnUser = document.getElementById('btnUser')
+const title = document.getElementById('title')
 
 //input модального окна Edit
 const idEdit = document.getElementById('idEdit')
@@ -40,6 +41,13 @@ on(document, 'click', '#tabNewUser', () => {
         })
         document.getElementById('roles').innerHTML = selectOption
     })
+})
+// Изменения Title при нажатии на кнопки Admin и User
+on(document, 'click', '#btnUser', () => {
+    title.innerHTML = "User page"
+})
+on(document, 'click', '#btnAdmin', () => {
+    title.innerHTML = "Admin panel"
 })
 
 // Вывод пользователей в таблицу
@@ -87,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             principalRoles += role.name.replace('ROLE_', '') + ' '
         })
         if (!principalRoles.includes('ADMIN')) {
+            title.innerHTML = "User page"
             btnAdmin.setAttribute('hidden','hidden')
             btnUser.className = "nav-link active"
             showActiveAdmin.className = "tab-pane fade p-3"
@@ -94,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 })
+
 
 // Вывод principal в таблицу User information-page
 principal.then(user => {

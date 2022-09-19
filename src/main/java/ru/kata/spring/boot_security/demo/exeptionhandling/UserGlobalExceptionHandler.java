@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.exeption_handling;
+package ru.kata.spring.boot_security.demo.exeptionhandling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
