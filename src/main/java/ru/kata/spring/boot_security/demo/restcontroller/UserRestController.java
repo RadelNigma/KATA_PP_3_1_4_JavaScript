@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.model.restcontroller;
+package ru.kata.spring.boot_security.demo.restcontroller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.exeptionhandling.NoSuchUserException;
