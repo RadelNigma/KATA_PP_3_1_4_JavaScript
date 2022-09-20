@@ -9,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class UserRestController {
 
     private final UserService userService;
@@ -18,12 +18,12 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/user")
     public List<User> getAllUsers() {
         return userService.finedAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public User getUser(@PathVariable long id) {
          User user = userService.findById(id);
          if (user==null){
@@ -33,18 +33,18 @@ public class UserRestController {
         return user;
     }
 
-    @PostMapping("/")
+    @PostMapping("/user")
     public User addNewUser(@RequestBody User user){
         userService.saveUser(user);
         return user;
     }
-    @PatchMapping("/")
+    @PatchMapping("/user")
     public User updateUser (@RequestBody User user){
         userService.saveUser(user);
         return user;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/{id}")
     public String deleteUser(@PathVariable long id) {
         User user = userService.findById(id);
         if (user==null){
